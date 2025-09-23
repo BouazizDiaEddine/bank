@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -14,6 +15,7 @@ import java.time.Instant;
 @Setter
 @Getter
 @Entity
+@Table(name = "bank_acc")
 public class Account {
 
     @Id
@@ -30,6 +32,8 @@ public class Account {
     )
     private long accountId;
     private long userId;
+    private long currencyId;
     private BigDecimal balance;
     private Instant lastUpdate;
+
 }

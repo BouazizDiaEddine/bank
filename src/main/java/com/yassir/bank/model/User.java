@@ -13,6 +13,7 @@ import java.time.Instant;
 @Setter
 @Getter
 @Entity
+@Table(name = "user_acc")
 public class User {
     @Id
     @SequenceGenerator(
@@ -26,7 +27,7 @@ public class User {
             strategy = GenerationType.SEQUENCE,
             generator = "user_id_sequence"
     )
-    private long user_id;
+    private long userId;
     private String name;
     private String Value;
 }
