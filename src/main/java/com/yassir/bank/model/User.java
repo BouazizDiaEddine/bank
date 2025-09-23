@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,5 +30,8 @@ public class User {
     )
     private long userId;
     private String name;
-    private String Value;
+    private String email;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private Set<Account> account;
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,9 +32,22 @@ public class Account {
             generator = "account_id_sequence"
     )
     private long accountId;
-    private long userId;
-    private long currencyId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "currency_id")
+    private Currency currency;
+
     private BigDecimal balance;
     private Instant lastUpdate;
+
+    @OneToMany(mappedBy = "fromAccount",cascade = CascadeType.REMOVE)
+    private Set<Transaction> transactionsFrom;
+
+    @OneToMany(mappedBy = "toAccount",cascade = CascadeType.REMOVE)
+    private Set<Transaction> transactionsTo;
 
 }

@@ -30,10 +30,14 @@ public class Transaction {
     )
     private long transaction_id;
 
+    @ManyToOne
+    @JoinColumn(name = "from_account_id")
+    private Account fromAccount;
 
-    private long fromAccount_id;
-    private long toAccount_id;
-    private long user_id;
+    @ManyToOne
+    @JoinColumn(name = "to_account_id")
+    private Account toAccount;
+
     private BigDecimal amount;
     private String trxtype;
     private Instant timestamp;
