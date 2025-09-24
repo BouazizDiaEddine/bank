@@ -31,9 +31,11 @@ public class User {
     )
     private Long userId;
 
+    @Column(unique = true, nullable = false)
     private String name;
 
     @Email(message = "Invalid email format")
+    @Column(unique = true, nullable = false)
     private String email;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
