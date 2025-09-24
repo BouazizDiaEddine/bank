@@ -1,6 +1,7 @@
 package com.yassir.bank.service;
 
 import com.yassir.bank.exception.DuplicateResourceException;
+import com.yassir.bank.exception.InvalidInputException;
 import com.yassir.bank.exception.ResourceNotFoundException;
 import com.yassir.bank.model.User;
 import com.yassir.bank.repos.UserRepository;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -26,28 +26,37 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        //TODO check user
+
+        userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
+            throw new DuplicateResourceException("Email '" + user.getEmail() + "' is already used");
+        });
+
         return userRepository.save(user);
     }
 
     public User updateUser(Long id, User updated) {
-        User existing = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
+        User exists = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
 
-        /*if (updated.getEmail() == null || updated.getName() == null) {
-            throw new IllegalArgumentException("Name and email must not be null");
-        }*/
+        if (updated.getEmail() == null || updated.getEmail().isEmpty()
+                || updated.getName() == null || updated.getName().isEmpty()) {
+            throw new InvalidInputException("Name and email are mandatory");
+        }
 
-        //TODO if email changed, ensure no other user has it
+        if (!exists.getEmail().equals(updated.getEmail())) {
+            userRepository.findByEmail(updated.getEmail()).ifPresent(u -> {
+                throw new DuplicateResourceException("Email '" + updated.getEmail() + "' is already used");
+            });
+        }
 
-        existing.setName(updated.getName());
-        existing.setEmail(updated.getEmail());
-        return userRepository.save(existing);
+        exists.setName(updated.getName());
+        exists.setEmail(updated.getEmail());
+        return userRepository.save(exists);
     }
 
     @Transactional
     public void deleteById(Long id) {
-        User existing = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
-        userRepository.delete(existing);
+        User exists = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
+        userRepository.delete(exists);
     }
 
 }
