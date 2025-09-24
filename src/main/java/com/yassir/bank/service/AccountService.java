@@ -2,9 +2,9 @@ package com.yassir.bank.service;
 
 import com.yassir.bank.exception.ResourceNotFoundException;
 import com.yassir.bank.model.Account;
-import com.yassir.bank.model.User;
+import com.yassir.bank.user.User;
 import com.yassir.bank.repos.AccountRepository;
-import com.yassir.bank.repos.UserRepository;
+import com.yassir.bank.user.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

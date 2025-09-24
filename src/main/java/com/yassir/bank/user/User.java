@@ -1,5 +1,6 @@
-package com.yassir.bank.model;
+package com.yassir.bank.user;
 
+import com.yassir.bank.model.Account;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

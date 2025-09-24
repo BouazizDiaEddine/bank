@@ -1,7 +1,7 @@
-package com.yassir.bank.controller;
+package com.yassir.bank.user;
 
-import com.yassir.bank.model.User;
-import com.yassir.bank.service.UserService;
+import com.yassir.bank.user.User;
+import com.yassir.bank.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
