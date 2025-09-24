@@ -26,6 +26,7 @@ public class UserService {
     @Transactional
     public User createUser(User user) {
 
+        //check if email already exists
         userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
             throw new DuplicateResourceException("Email '" + user.getEmail() + "' is already used");
         });
@@ -37,11 +38,13 @@ public class UserService {
     public User updateUser(Long id, User updated) {
         User exists = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
 
+        //check the existence of mail and name
         if (updated.getEmail() == null || updated.getEmail().isEmpty()
                 || updated.getName() == null || updated.getName().isEmpty()) {
             throw new InvalidInputException("Name and email are mandatory");
         }
 
+        //check if mail already exists
         if (!exists.getEmail().equals(updated.getEmail())) {
             userRepository.findByEmail(updated.getEmail()).ifPresent(u -> {
                 throw new DuplicateResourceException("Email '" + updated.getEmail() + "' is already used");

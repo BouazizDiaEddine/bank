@@ -3,6 +3,7 @@ package com.yassir.bank.user;
 import com.yassir.bank.model.Account;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,10 +33,12 @@ public class User {
     private Long userId;
 
     @Column(unique = true, nullable = false)
+    @NotBlank
     private String name;
 
     @Email(message = "Invalid email format")
     @Column(unique = true, nullable = false)
+    @NotBlank
     private String email;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
