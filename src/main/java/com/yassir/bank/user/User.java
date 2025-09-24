@@ -2,6 +2,7 @@ package com.yassir.bank.user;
 
 import com.yassir.bank.model.Account;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,10 @@ public class User {
             generator = "user_id_sequence"
     )
     private Long userId;
+
     private String name;
+
+    @Email(message = "Invalid email format")
     private String email;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
