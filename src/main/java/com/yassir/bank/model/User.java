@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -28,7 +27,7 @@ public class User {
             strategy = GenerationType.SEQUENCE,
             generator = "user_id_sequence"
     )
-    private long userId;
+    private Long userId;
     private String name;
     private String email;
 
