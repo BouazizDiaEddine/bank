@@ -1,5 +1,6 @@
 package com.yassir.bank.model;
 
+import com.yassir.bank.currency.Currency;
 import com.yassir.bank.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

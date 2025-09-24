@@ -1,5 +1,7 @@
-package com.yassir.bank.model;
+package com.yassir.bank.currency;
 
+import com.yassir.bank.model.Account;
+import com.yassir.bank.model.Exchange;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

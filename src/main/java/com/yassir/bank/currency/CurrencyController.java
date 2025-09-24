@@ -1,7 +1,7 @@
-package com.yassir.bank.controller;
+package com.yassir.bank.currency;
 
-import com.yassir.bank.model.Currency;
-import com.yassir.bank.service.CurrencyService;
+import com.yassir.bank.currency.Currency;
+import com.yassir.bank.currency.CurrencyService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
