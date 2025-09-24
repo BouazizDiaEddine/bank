@@ -1,6 +1,7 @@
 package com.yassir.bank.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +32,8 @@ public class Currency {
     @OneToMany(mappedBy = "currency",cascade = CascadeType.REMOVE)
     private Set<Account> account;
 
-
+    @Column(unique = true, nullable = false)
+    @NotBlank
     private String value;
     private String name;
 
