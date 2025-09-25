@@ -1,6 +1,6 @@
 package com.yassir.bank.currency;
 
-import com.yassir.bank.model.Account;
+import com.yassir.bank.account.Account;
 import com.yassir.bank.model.Exchange;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

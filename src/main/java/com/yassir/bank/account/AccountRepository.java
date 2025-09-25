@@ -1,7 +1,7 @@
-package com.yassir.bank.repos;
+package com.yassir.bank.account;
 
 import com.yassir.bank.currency.Currency;
-import com.yassir.bank.model.Account;
+import com.yassir.bank.account.Account;
 import com.yassir.bank.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

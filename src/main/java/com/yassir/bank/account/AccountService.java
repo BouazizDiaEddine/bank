@@ -1,11 +1,11 @@
-package com.yassir.bank.service;
+package com.yassir.bank.account;
 
 import com.yassir.bank.exception.DuplicateResourceException;
 import com.yassir.bank.exception.InvalidInputException;
 import com.yassir.bank.exception.ResourceNotFoundException;
-import com.yassir.bank.model.Account;
+import com.yassir.bank.account.Account;
 import com.yassir.bank.user.User;
-import com.yassir.bank.repos.AccountRepository;
+import com.yassir.bank.account.AccountRepository;
 import com.yassir.bank.user.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
