@@ -1,7 +1,8 @@
-package com.yassir.bank.model;
+package com.yassir.bank.exchange;
 
 import com.yassir.bank.currency.Currency;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class Exchange {
     @JoinColumn(name = "to_currency_id")
     private Currency toCurrency;
 
+    @DecimalMin(value = "0", inclusive = false, message = "Exchange rate must be greater than 0")
     private BigDecimal exchangeRate;
 }
 
