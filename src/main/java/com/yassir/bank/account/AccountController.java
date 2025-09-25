@@ -1,5 +1,6 @@
 package com.yassir.bank.account;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +14,8 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping("user/{id}")
-    public List<Account> getAllAccounts(@PathVariable Long id) {
-        return accountService.findByUser(id);
+    public ResponseEntity<List<Account>> getAllAccounts(@PathVariable Long id) {
+        return ResponseEntity.ok(accountService.findByUser(id));
     }
 
     @GetMapping("/{id}")
@@ -24,14 +25,13 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<Account> createAccount(/*TODO VALIDATE USER*/ @RequestBody Account account) {
+    public ResponseEntity<Account> createAccount(@Valid @RequestBody Account account) {
         return ResponseEntity.ok(accountService.createAccount(account));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Account> updateAccount(@PathVariable Long id, /*TODO VALIDATE USER*/ @RequestBody Account account) {
-        accountService.updateAccount(id, account);
-        return ResponseEntity.ok(account);
+    public ResponseEntity<Account> updateAccount(@PathVariable Long id, @Valid @RequestBody Account account) {
+        return ResponseEntity.ok(accountService.updateAccount(id, account));
     }
 
     @DeleteMapping("/{id}")

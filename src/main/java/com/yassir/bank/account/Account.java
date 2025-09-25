@@ -4,6 +4,7 @@ import com.yassir.bank.currency.Currency;
 import com.yassir.bank.model.Transaction;
 import com.yassir.bank.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,8 +44,9 @@ public class Account {
     @JoinColumn(name = "currency_id")
     private Currency currency;
 
+    @DecimalMin(value = "0", inclusive = false, message = "balance must be greater than 0")
     private BigDecimal balance;
-    private Instant lastUpdate;
+    //private Instant lastUpdate; probably not gonna user
 
     @OneToMany(mappedBy = "fromAccount",cascade = CascadeType.REMOVE)
     private Set<Transaction> transactionsFrom;
