@@ -1,14 +1,17 @@
 package com.yassir.bank.repos;
 
+import com.yassir.bank.currency.Currency;
 import com.yassir.bank.model.Account;
 import com.yassir.bank.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account,Long> {
 
     List<Account> findAccountsByUser(User user);
+    Optional<Account> findAccountsByUserAndCurrency(User user, Currency currency);
 }

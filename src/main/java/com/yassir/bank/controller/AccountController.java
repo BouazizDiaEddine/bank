@@ -15,7 +15,7 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping("user/{id}")
-    public List<Account> getAllUsers(@PathVariable Long id) {
+    public List<Account> getAllAccounts(@PathVariable Long id) {
         return accountService.findByUser(id);
     }
 
@@ -26,21 +26,18 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<Account> createUser(/*TODO VALIDATE USER*/ @RequestBody Account account) {
-
-        accountService.createAccount(account);
-
-        return ResponseEntity.ok(account);
+    public ResponseEntity<Account> createAccount(/*TODO VALIDATE USER*/ @RequestBody Account account) {
+        return ResponseEntity.ok(accountService.createAccount(account));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Account> updateUser(@PathVariable Long id, /*TODO VALIDATE USER*/ @RequestBody Account account) {
+    public ResponseEntity<Account> updateAccount(@PathVariable Long id, /*TODO VALIDATE USER*/ @RequestBody Account account) {
         accountService.updateAccount(id, account);
         return ResponseEntity.ok(account);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAccount(@PathVariable Long id) {
         accountService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
