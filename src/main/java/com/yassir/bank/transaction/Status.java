@@ -2,7 +2,7 @@ package com.yassir.bank.transaction;
 
 public enum Status {
     SEND,
-    RECIEVED,
+    RECEIVED,
     DEPOSIT,
     WITHDRAWAL
 }

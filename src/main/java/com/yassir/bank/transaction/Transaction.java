@@ -31,11 +31,11 @@ public class Transaction {
     )
     private long transaction_id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "from_account_id")
     private Account fromAccount;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "to_account_id")
     private Account toAccount;
 
@@ -44,5 +44,4 @@ public class Transaction {
 
     private BigDecimal amount;
 
-    private Instant timestamp;
 }
