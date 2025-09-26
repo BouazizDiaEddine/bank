@@ -1,5 +1,6 @@
 package com.yassir.bank.currency;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yassir.bank.account.Account;
 import com.yassir.bank.exchange.Exchange;
 import jakarta.persistence.*;
@@ -32,16 +33,20 @@ public class Currency {
     private Long currencyId;
 
     @OneToMany(mappedBy = "currency",cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private Set<Account> account;
 
     @Column(unique = true, nullable = false)
     @NotBlank
     private String value;
+    @NotBlank
     private String name;
 
     @OneToMany(mappedBy = "fromCurrency",cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private Set<Exchange> exchangeFrom;
 
     @OneToMany(mappedBy = "toCurrency",cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private Set<Exchange> exchangeTo;
 }

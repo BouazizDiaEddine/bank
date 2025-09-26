@@ -1,5 +1,6 @@
 package com.yassir.bank.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yassir.bank.account.Account;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -42,5 +43,6 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private Set<Account> account;
 }
