@@ -1,5 +1,6 @@
 package com.yassir.bank.account;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yassir.bank.currency.Currency;
 import com.yassir.bank.model.Transaction;
 import com.yassir.bank.user.User;
@@ -11,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -49,9 +49,11 @@ public class Account {
     //private Instant lastUpdate; probably not gonna user
 
     @OneToMany(mappedBy = "fromAccount",cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private Set<Transaction> transactionsFrom;
 
     @OneToMany(mappedBy = "toAccount",cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private Set<Transaction> transactionsTo;
 
 }
