@@ -21,7 +21,7 @@ public class ExchangeService {
     //find exchange by currency
     public List<Exchange> findByCurrencyExchanges(Long currencyId) {
         Currency currency = currencyRepository.findById(currencyId).orElseThrow(() -> new ResourceNotFoundException("Currency not found " + currencyId));
-        return exchangeRepository.findByFromCurrencyOrToCurrency(currency);
+        return exchangeRepository.findByFromCurrencyOrToCurrency(currency,currency);
     }
 
     //creation

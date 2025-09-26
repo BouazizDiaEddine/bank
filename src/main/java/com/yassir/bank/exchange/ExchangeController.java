@@ -27,6 +27,7 @@ public class ExchangeController {
         return ResponseEntity.ok(exchangeService.createExchange(exchange));
     }
 
+    @PutMapping
     public ResponseEntity<List<Exchange>> updateExchange(@Valid @RequestBody Exchange exchange){
         return ResponseEntity.ok(exchangeService.updateExchange(exchange));
     }

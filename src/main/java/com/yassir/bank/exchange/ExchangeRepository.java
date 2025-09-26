@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ExchangeRepository extends JpaRepository<Exchange,Long> {
 
-    List<Exchange> findByFromCurrencyOrToCurrency(Currency currency);
+    List<Exchange> findByFromCurrencyOrToCurrency(Currency currencyFrom,Currency currencyTo);
     Exchange findByFromCurrencyAndToCurrency (Currency currencyFrom,Currency currencyTo);
 
 }
