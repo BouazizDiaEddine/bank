@@ -39,7 +39,10 @@ public class Transaction {
     @JoinColumn(name = "to_account_id")
     private Account toAccount;
 
+    @Enumerated(EnumType.STRING)
+    private Status trxType;
+
     private BigDecimal amount;
-    private String trxtype;
+
     private Instant timestamp;
 }
