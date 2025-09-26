@@ -1,4 +1,4 @@
-package com.yassir.bank.model;
+package com.yassir.bank.transaction;
 
 
 import com.yassir.bank.account.Account;

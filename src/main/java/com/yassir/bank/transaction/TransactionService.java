@@ -1,4 +1,4 @@
-package com.yassir.bank.service;
+package com.yassir.bank.transaction;
 
 import org.springframework.stereotype.Service;
 

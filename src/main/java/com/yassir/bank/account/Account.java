@@ -2,7 +2,7 @@ package com.yassir.bank.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yassir.bank.currency.Currency;
-import com.yassir.bank.model.Transaction;
+import com.yassir.bank.transaction.Transaction;
 import com.yassir.bank.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
