@@ -12,6 +12,7 @@ import com.yassir.bank.user.User;
 import com.yassir.bank.account.AccountRepository;
 import com.yassir.bank.user.UserRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 
+@Slf4j
 @Service
 public class AccountService {
 
@@ -52,9 +54,11 @@ public class AccountService {
 
     @Transactional
     public Account createAccount(Account account ) {
+        log.info("checking if account user has an account with this currency : "+account.getCurrency().getValue());
         accountRepository.findAccountsByUserAndCurrency(account.getUser(),account.getCurrency()).ifPresent(u -> {
             throw new DuplicateResourceException("this user already has an account with this currency"+ account.getCurrency().getValue() );
         });
+
         BigDecimal init;
         if(account.getCurrency().getValue().equals(initCurrency))
             init=initAmount;
@@ -72,8 +76,8 @@ public class AccountService {
         Account exists = accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Account not found with id " + id));
 
         if(!exists.getCurrency().equals(updated.getCurrency())) {
+            log.info("updating account currency from "+exists.getCurrency().getValue()+" to "+updated.getCurrency().getValue());
             Exchange exchange = exchangeRepository.findByFromCurrencyAndToCurrency(exists.getCurrency(),updated.getCurrency());
-
             exists.setCurrency(updated.getCurrency());
             exists.setBalance(exchange.getExchangeRate().multiply(exists.getBalance()));
         }
