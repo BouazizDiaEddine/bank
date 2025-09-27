@@ -54,6 +54,7 @@ public class CurrencyService {
         return currencyRepository.save(exists);
     }
 
+
     @Transactional
     public void deleteById(Long id) {
         Currency exists = currencyRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Currency not found with id " + id));
