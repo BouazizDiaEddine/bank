@@ -1,5 +1,6 @@
 package com.yassir.bank.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -20,6 +22,7 @@ public class GlobalExceptionHandler {
         body.put("error", "Not Found");
         body.put("message", ex.getMessage());
 
+        log.error("ResourceNotFound Exception"+ ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
 
@@ -31,6 +34,7 @@ public class GlobalExceptionHandler {
         body.put("error", "Duplicate Resource");
         body.put("message", ex.getMessage());
 
+        log.error("DuplicateResource Exception"+ ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }
 
@@ -42,6 +46,7 @@ public class GlobalExceptionHandler {
         body.put("error", "Invilid input");
         body.put("message", ex.getMessage());
 
+        log.error("InvalidInputq Exception"+ ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
