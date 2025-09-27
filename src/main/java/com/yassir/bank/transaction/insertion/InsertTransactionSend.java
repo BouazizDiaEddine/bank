@@ -1,13 +1,8 @@
-package com.yassir.bank.transaction.transaction.insertion;
+package com.yassir.bank.transaction.insertion;
 
 import com.yassir.bank.account.Account;
-import com.yassir.bank.account.AccountRepository;
 import com.yassir.bank.transaction.Status;
 import com.yassir.bank.transaction.Transaction;
-import com.yassir.bank.transaction.TransactionRepository;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
