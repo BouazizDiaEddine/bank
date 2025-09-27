@@ -4,11 +4,13 @@ import com.yassir.bank.exception.DuplicateResourceException;
 import com.yassir.bank.exception.InvalidInputException;
 import com.yassir.bank.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class CurrencyService {
     @Autowired
@@ -25,6 +27,7 @@ public class CurrencyService {
 
     @Transactional
     public Currency createCurrency(Currency currency) {
+        log.info("checking if the currency already exists "+currency.toString());
         currencyRepository.findByValue(currency.getValue()).ifPresent(u -> {
             throw new DuplicateResourceException("currency '" + currency.getValue() + "' already exists");
         });
