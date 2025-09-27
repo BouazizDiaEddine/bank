@@ -5,10 +5,7 @@ import com.yassir.bank.account.Account;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -16,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
 @Entity
 @Table(name = "user_acc")
 public class User {
