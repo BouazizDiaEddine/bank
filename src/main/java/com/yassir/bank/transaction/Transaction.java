@@ -3,6 +3,9 @@ package com.yassir.bank.transaction;
 
 import com.yassir.bank.account.Account;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +45,9 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private Status trxType;
 
+    @NotBlank
+    @NotNull
+    @DecimalMin(value = "0", inclusive = false)
     private BigDecimal amount;
 
 }

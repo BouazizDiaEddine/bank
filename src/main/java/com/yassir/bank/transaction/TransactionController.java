@@ -4,10 +4,7 @@ import com.yassir.bank.exchange.Exchange;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,8 +15,23 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
-    @PostMapping
-    public ResponseEntity<List<Transaction>> createTransaction(@Valid @RequestBody Transaction transaction) {
-        return ResponseEntity.ok(transactionService.insertTransaction(transaction));
+    @GetMapping(("/currency/{id}"))
+    public ResponseEntity<List<Transaction>> TransactionHistory(@PathVariable Long id) {
+        return ResponseEntity.ok(transactionService.accountTransactions(id));
+    }
+
+    @PostMapping(("/send"))
+    public ResponseEntity<List<Transaction>> createTransactionSend(@Valid @RequestBody Transaction transaction) {
+        return ResponseEntity.ok(transactionService.insertTransactionSend(transaction));
+    }
+
+    @PostMapping(("/deposit"))
+    public ResponseEntity<List<Transaction>> createTransactionDeposit(@Valid @RequestBody Transaction transaction) {
+        return ResponseEntity.ok(transactionService.insertTransactionDeposit(transaction));
+    }
+
+    @PostMapping(("/withdrawal"))
+    public ResponseEntity<List<Transaction>> createTransactionWithdrawal(@Valid @RequestBody Transaction transaction) {
+        return ResponseEntity.ok(transactionService.insertTransactionWithdrawal(transaction));
     }
 }
