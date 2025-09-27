@@ -4,12 +4,14 @@ import com.yassir.bank.exception.DuplicateResourceException;
 import com.yassir.bank.exception.InvalidInputException;
 import com.yassir.bank.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
@@ -26,23 +28,18 @@ public class UserService {
     @Transactional
     public User createUser(User user) {
 
-        //check if email already exists
+        log.info("Checking the usage of the email"+user.toString());
         userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
             throw new DuplicateResourceException("Email '" + user.getEmail() + "' is already used");
         });
-
-        return userRepository.save(user);
+        userRepository.save(user);
+        log.info("User was saved successfully "+user.toString());
+        return user;
     }
 
     @Transactional
     public User updateUser(Long id, User updated) {
         User exists = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
-
-        //check the existence of mail and name
-        if (updated.getEmail() == null || updated.getEmail().isEmpty()
-                || updated.getName() == null || updated.getName().isEmpty()) {
-            throw new InvalidInputException("Name and email are mandatory");
-        }
 
         //check if mail already exists
         if (!exists.getEmail().equals(updated.getEmail())) {
@@ -53,7 +50,9 @@ public class UserService {
 
         exists.setName(updated.getName());
         exists.setEmail(updated.getEmail());
-        return userRepository.save(exists);
+        userRepository.save(exists);
+        log.info("the user was updated to "+exists.toString());
+        return exists;
     }
 
     @Transactional
