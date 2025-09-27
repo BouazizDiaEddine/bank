@@ -2,6 +2,7 @@ package com.yassir.bank.transaction;
 
 import com.yassir.bank.account.Account;
 import com.yassir.bank.account.AccountRepository;
+import com.yassir.bank.exception.InvalidInputException;
 import com.yassir.bank.exception.ResourceNotFoundException;
 import com.yassir.bank.transaction.insertion.InsertTransactionDeposit;
 import com.yassir.bank.transaction.insertion.InsertTransactionSend;
@@ -40,6 +41,11 @@ public class TransactionService {
             throw new ResourceNotFoundException("account not found " + transaction.getToAccount().getAccountId());
         });
 
+
+        if(!transaction.getTrxType().equals(Status.SEND)){
+            throw new InvalidInputException("the transaction type should be"+Status.SEND);
+        }
+
         TransactionInsertionService transactionInsertionService = new TransactionInsertionService(new InsertTransactionSend());
 
         return processTransaction(transactionInsertionService,transaction);
@@ -52,6 +58,11 @@ public class TransactionService {
             throw new ResourceNotFoundException("account not found "+transaction.getFromAccount().getAccountId());
         });
 
+
+        if(!transaction.getTrxType().equals(Status.DEPOSIT)){
+            throw new InvalidInputException("the transaction type should be"+Status.DEPOSIT);
+        }
+
         TransactionInsertionService transactionInsertionService = new TransactionInsertionService(new InsertTransactionDeposit());
 
         return processTransaction(transactionInsertionService,transaction);
@@ -63,6 +74,10 @@ public class TransactionService {
         accountRepository.findById(transaction.getFromAccount().getAccountId()).orElseThrow(() -> {
             throw new ResourceNotFoundException("account not found "+transaction.getFromAccount().getAccountId());
         });
+
+        if(!transaction.getTrxType().equals(Status.WITHDRAWAL)){
+            throw new InvalidInputException("the transaction type should be"+Status.WITHDRAWAL);
+        }
 
         TransactionInsertionService transactionInsertionService = new TransactionInsertionService(new InsertTransactionWithdrawal());
 
@@ -78,6 +93,5 @@ public class TransactionService {
         }
         return transactionRepository.saveAll(results);
     }
-
 
 }
