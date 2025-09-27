@@ -3,10 +3,7 @@ package com.yassir.bank.exchange;
 import com.yassir.bank.currency.Currency;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -14,6 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
 @Entity
 public class Exchange {
     @Id

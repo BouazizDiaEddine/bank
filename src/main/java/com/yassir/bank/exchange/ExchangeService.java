@@ -3,12 +3,14 @@ package com.yassir.bank.exchange;
 import com.yassir.bank.currency.Currency;
 import com.yassir.bank.currency.CurrencyRepository;
 import com.yassir.bank.exception.ResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Slf4j
 @Service
 public class ExchangeService {
 
@@ -26,6 +28,7 @@ public class ExchangeService {
 
     //creation
     public List<Exchange> createExchange(Exchange exchange){
+        log.info("checking the existence if the currencies of "+exchange.toString());
         Currency currencyFrom = currencyRepository.findById(exchange.getFromCurrency().getCurrencyId()).orElseThrow(() -> new ResourceNotFoundException("Currency from not found " + exchange.getFromCurrency().getCurrencyId()));
         Currency currencyTo = currencyRepository.findById(exchange.getToCurrency().getCurrencyId()).orElseThrow(() -> new ResourceNotFoundException("Currency not found " + exchange.getToCurrency().getCurrencyId()));
         Exchange reverseExchange = new Exchange();
@@ -39,6 +42,7 @@ public class ExchangeService {
 
     //update updated by currencyFrom to currencyTo (this updates both)
     public List<Exchange> updateExchange(Exchange updated) {
+        log.info("checking the existence if the currencies of "+updated.toString());
         Currency currencyFrom = currencyRepository.findById(updated.getFromCurrency().getCurrencyId()).orElseThrow(() -> new ResourceNotFoundException("Currency from not found " + updated.getFromCurrency().getCurrencyId()));
         Currency currencyTo = currencyRepository.findById(updated.getToCurrency().getCurrencyId()).orElseThrow(() -> new ResourceNotFoundException("Currency not found " + updated.getToCurrency().getCurrencyId()));
 
