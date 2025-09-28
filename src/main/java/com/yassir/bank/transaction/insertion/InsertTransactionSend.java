@@ -1,6 +1,7 @@
 package com.yassir.bank.transaction.insertion;
 
 import com.yassir.bank.account.Account;
+import com.yassir.bank.exception.InvalidInputException;
 import com.yassir.bank.transaction.Status;
 import com.yassir.bank.transaction.Transaction;
 
@@ -16,6 +17,8 @@ public class InsertTransactionSend implements InsertTransaction {
         Account accountFrom = transaction.getFromAccount();
         Account accountTo = transaction.getToAccount();
 
+        if (!accountFrom.getCurrency().equals(accountTo.getCurrency()))
+            throw new InvalidInputException("you can't send from a currency to another");
         accountFrom.setBalance(accountFrom.getBalance().subtract(transaction.getAmount()));
         accountTo.setBalance(accountTo.getBalance().add(transaction.getAmount()));
 

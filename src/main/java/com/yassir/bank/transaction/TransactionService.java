@@ -41,20 +41,19 @@ public class TransactionService {
             throw new ResourceNotFoundException("account not found " + transaction.getToAccount().getAccountId());
         });
 
-
-        if(!transaction.getTrxType().equals(Status.SEND)){
+        if(!transaction.getTrxType().equals(Status.SEND))
             throw new InvalidInputException("the transaction type should be"+Status.SEND);
-        }
 
         TransactionInsertionService transactionInsertionService = new TransactionInsertionService(new InsertTransactionSend());
 
         return processTransaction(transactionInsertionService,transaction);
     }
 
+
     @Transactional
     public List<Transaction> insertTransactionDeposit(Transaction transaction){
 
-        accountRepository.findById(transaction.getFromAccount().getAccountId()).orElseThrow(() -> {
+        accountRepository.findById(transaction.getToAccount().getAccountId()).orElseThrow(() -> {
             throw new ResourceNotFoundException("account not found "+transaction.getFromAccount().getAccountId());
         });
 
@@ -71,7 +70,7 @@ public class TransactionService {
     @Transactional
     public List<Transaction> insertTransactionWithdrawal(Transaction transaction){
 
-        accountRepository.findById(transaction.getFromAccount().getAccountId()).orElseThrow(() -> {
+        accountRepository.findById(transaction.getToAccount().getAccountId()).orElseThrow(() -> {
             throw new ResourceNotFoundException("account not found "+transaction.getFromAccount().getAccountId());
         });
 
