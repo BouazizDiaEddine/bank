@@ -80,8 +80,6 @@ public class CurrencyController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Currency updated successfully",
                     content = @Content(schema = @Schema(implementation = Currency.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input",
-                    content = @Content(schema = @Schema(example = "{ \"message\": \"value is mandatory\" }"))),
             @ApiResponse(responseCode = "404", description = "Currency not found",
                     content = @Content(schema = @Schema(example = "{ \"message\": \"Currency not found with id 99\" }"))),
             @ApiResponse(responseCode = "409", description = "Duplicate currency value",

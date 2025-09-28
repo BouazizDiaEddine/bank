@@ -39,9 +39,6 @@ public class CurrencyService {
     public Currency updateCurrency(Long id, Currency updated) {
         Currency exists = currencyRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Currency not found with id " + id));
 
-        //check value
-        if(updated.getValue().isEmpty() || updated.getValue() == null)
-            throw new InvalidInputException("value is mandatory");
 
         //check if value already exists
         if (!exists.getValue().equals(updated.getValue())){
