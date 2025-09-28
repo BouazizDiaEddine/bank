@@ -11,7 +11,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = {"exchangeFrom", "exchangeTo"})
 @Setter
 @Getter
 @Entity
@@ -30,15 +30,16 @@ public class Currency {
     )
     private Long currencyId;
 
-    @OneToMany(mappedBy = "currency",cascade = CascadeType.REMOVE)
-    @JsonIgnore
-    private Set<Account> account;
-
     @Column(unique = true, nullable = false)
     @NotBlank
     private String value;
     @NotBlank
     private String name;
+
+
+    @OneToMany(mappedBy = "currency",cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private Set<Account> account;
 
     @OneToMany(mappedBy = "fromCurrency",cascade = CascadeType.REMOVE)
     @JsonIgnore

@@ -47,7 +47,7 @@ public class Account {
     @DecimalMin(value = "0", inclusive = false, message = "balance must be greater than 0")
     private BigDecimal balance;
     //private Instant lastUpdate; probably not gonna user
-
+    //TODO cascade remove
     @OneToMany(mappedBy = "fromAccount",cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Set<Transaction> transactionsFrom;
