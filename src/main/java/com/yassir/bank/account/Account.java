@@ -48,11 +48,11 @@ public class Account {
     private BigDecimal balance;
     //private Instant lastUpdate; probably not gonna user
 
-    @OneToMany(mappedBy = "fromAccount")
+    @OneToMany(mappedBy = "fromAccount",cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Set<Transaction> transactionsFrom;
 
-    @OneToMany(mappedBy = "toAccount")
+    @OneToMany(mappedBy = "toAccount",cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Set<Transaction> transactionsTo;
 

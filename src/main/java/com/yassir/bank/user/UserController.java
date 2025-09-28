@@ -34,7 +34,7 @@ public class UserController {
         return ResponseEntity.ok(userService.findAll());
     }
 
-    @Operation(summary = "Get all users with the specified id", description = "Fetch 1 user from the system")
+    @Operation(summary = "Gets the user with specified id", description = "Fetch 1 user from the system")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     content = @Content(mediaType = "application/json",

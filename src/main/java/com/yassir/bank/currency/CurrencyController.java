@@ -103,9 +103,9 @@ public class CurrencyController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCurrency(@PathVariable Long id) {
-        log.info("Deleting user with ID "+id);
+        log.info("Deleting Currency with ID "+id);
         currencyService.deleteById(id);
-        log.info("the user with ID "+id+" was deleted successfully");
+        log.info("the Currency with ID "+id+" was deleted successfully");
         return ResponseEntity.ok("Currency "+ id +" was deleted successfully ");
     }
 
