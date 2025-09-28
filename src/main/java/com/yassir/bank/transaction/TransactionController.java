@@ -61,7 +61,7 @@ public class TransactionController {
 
     @Operation(
             summary = "Deposit money into an account",
-            description = "Creates a deposit transaction for a specific account. Validates that the ToAccount exists and that the transaction type is DEPOSIT."
+            description = "Creates a deposit transaction for a specific account (the toAccount). Validates that the ToAccount exists and that the transaction type is DEPOSIT."
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Deposit transaction created successfully",
@@ -79,7 +79,7 @@ public class TransactionController {
 
     @Operation(
             summary = "Withdraw money from an account",
-            description = "Creates a withdrawal transaction for a specific account. Validates that the account exists and that the transaction type is WITHDRAWAL."
+            description = "Creates a withdrawal transaction for a specific account (the toAccount). Validates that the toAccount exists and that the transaction type is WITHDRAWAL."
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Withdrawal transaction created successfully",

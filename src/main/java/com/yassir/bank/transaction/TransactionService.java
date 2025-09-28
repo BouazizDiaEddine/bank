@@ -23,6 +23,7 @@ public class TransactionService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Transactional
     public List<Transaction> accountTransactions(Long id){
         Account account=accountRepository.findById(id).orElseThrow(() -> {
             throw new ResourceNotFoundException("Account Not Found "+ id );
@@ -33,16 +34,19 @@ public class TransactionService {
     @Transactional
     public List<Transaction> insertTransactionSend(Transaction transaction){
 
-        accountRepository.findById(transaction.getFromAccount().getAccountId()).orElseThrow(() -> {
+        Account fromAccount =accountRepository.findById(transaction.getFromAccount().getAccountId()).orElseThrow(() -> {
             throw new ResourceNotFoundException("account not found "+transaction.getFromAccount().getAccountId());
         });
 
-        accountRepository.findById(transaction.getToAccount().getAccountId()).orElseThrow(() -> {
+        Account toAccount =accountRepository.findById(transaction.getToAccount().getAccountId()).orElseThrow(() -> {
             throw new ResourceNotFoundException("account not found " + transaction.getToAccount().getAccountId());
         });
 
         if(!transaction.getTrxType().equals(Status.SEND))
             throw new InvalidInputException("the transaction type should be"+Status.SEND);
+
+        transaction.setToAccount(toAccount);
+        transaction.setFromAccount(fromAccount);
 
         TransactionInsertionService transactionInsertionService = new TransactionInsertionService(new InsertTransactionSend());
 
@@ -53,7 +57,7 @@ public class TransactionService {
     @Transactional
     public List<Transaction> insertTransactionDeposit(Transaction transaction){
 
-        accountRepository.findById(transaction.getToAccount().getAccountId()).orElseThrow(() -> {
+        Account toAccount=accountRepository.findById(transaction.getToAccount().getAccountId()).orElseThrow(() -> {
             throw new ResourceNotFoundException("account not found "+transaction.getFromAccount().getAccountId());
         });
 
@@ -61,6 +65,8 @@ public class TransactionService {
         if(!transaction.getTrxType().equals(Status.DEPOSIT)){
             throw new InvalidInputException("the transaction type should be"+Status.DEPOSIT);
         }
+
+        transaction.setToAccount(toAccount);
 
         TransactionInsertionService transactionInsertionService = new TransactionInsertionService(new InsertTransactionDeposit());
 
@@ -70,13 +76,15 @@ public class TransactionService {
     @Transactional
     public List<Transaction> insertTransactionWithdrawal(Transaction transaction){
 
-        accountRepository.findById(transaction.getToAccount().getAccountId()).orElseThrow(() -> {
+        Account toAccount=accountRepository.findById(transaction.getToAccount().getAccountId()).orElseThrow(() -> {
             throw new ResourceNotFoundException("account not found "+transaction.getFromAccount().getAccountId());
         });
 
         if(!transaction.getTrxType().equals(Status.WITHDRAWAL)){
             throw new InvalidInputException("the transaction type should be"+Status.WITHDRAWAL);
         }
+
+        transaction.setToAccount(toAccount);
 
         TransactionInsertionService transactionInsertionService = new TransactionInsertionService(new InsertTransactionWithdrawal());
 
@@ -87,9 +95,9 @@ public class TransactionService {
     private List<Transaction> processTransaction(TransactionInsertionService transactionInsertionService,Transaction transaction){
         List<Transaction> results = transactionInsertionService.getInsertTransaction(transaction);
 
-        for (Transaction result : results) {
+        for (Transaction result : results)
             accountRepository.save(result.getToAccount());
-        }
+
         return transactionRepository.saveAll(results);
     }
 

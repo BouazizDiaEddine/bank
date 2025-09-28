@@ -17,7 +17,7 @@ public class InsertTransactionSend implements InsertTransaction {
         Account accountFrom = transaction.getFromAccount();
         Account accountTo = transaction.getToAccount();
 
-        if (!accountFrom.getCurrency().equals(accountTo.getCurrency()))
+        if (!accountFrom.getCurrency().getValue().equals(accountTo.getCurrency().getValue()))
             throw new InvalidInputException("you can't send from a currency to another");
         accountFrom.setBalance(accountFrom.getBalance().subtract(transaction.getAmount()));
         accountTo.setBalance(accountTo.getBalance().add(transaction.getAmount()));

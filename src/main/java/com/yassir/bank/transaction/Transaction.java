@@ -45,9 +45,8 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private Status trxType;
 
-    @NotBlank
     @NotNull
-    @DecimalMin(value = "0", inclusive = false)
+    //@DecimalMin(value = "0", inclusive = false)?!!
     private BigDecimal amount;
 
 }
