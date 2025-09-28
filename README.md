@@ -62,7 +62,7 @@ After running the application, please visit the link bellow for the openApi docu
     "name": "Algerian Dinar"
     },
     {
-    "currencyId": 1005,
+    "currencyId": 1002,
     "value": "LIRA",
     "name": "lira"
     }

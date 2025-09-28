@@ -75,7 +75,8 @@ public class TransactionService {
         transaction.setToAccount(toAccount);
         transaction.setFromAccount(fromAccount);
 
-        Exchange exchange = exchangeRepository.findByFromCurrencyAndToCurrency(fromAccount.getCurrency(),toAccount.getCurrency());
+        Exchange exchange = exchangeRepository.findByFromCurrencyAndToCurrency(fromAccount.getCurrency(),toAccount.getCurrency())
+                .orElseThrow(() -> new ResourceNotFoundException("currencies not found"+fromAccount.getCurrency().getValue()+" and "+toAccount.getCurrency().getValue()));;
 
         TransactionInsertionService transactionInsertionService = new TransactionInsertionService(new InsertTransactionExchange());
 

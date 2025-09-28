@@ -114,7 +114,7 @@ class ExchangeServiceTest {
         when(currencyRepository.findById(1L)).thenReturn(Optional.of(usd));
         when(currencyRepository.findById(2L)).thenReturn(Optional.of(eur));
         when(exchangeRepository.findByFromCurrencyAndToCurrency(eur, usd))
-                .thenReturn(existsReverse);
+                .thenReturn(Optional.of(existsReverse));
         when(exchangeRepository.saveAll(anyList())).thenAnswer(invocation -> invocation.getArgument(0));
 
         // when

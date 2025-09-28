@@ -79,7 +79,7 @@ class AccountServiceTest {
         when(currencyRepository.findByValue("USD"))
                 .thenReturn(Optional.of(usd));
         when(exchangeRepository.findByFromCurrencyAndToCurrency(usd, eur))
-                .thenReturn(usdToEur);
+                .thenReturn(Optional.of(usdToEur));
         when(accountRepository.save(any(Account.class)))
                 .thenAnswer(invocation -> {
                     Account saved = invocation.getArgument(0);

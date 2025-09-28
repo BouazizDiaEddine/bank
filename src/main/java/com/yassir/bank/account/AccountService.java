@@ -79,7 +79,8 @@ public class AccountService {
 
         if(!exists.getCurrency().getValue().equals(updated.getCurrency().getValue())) {
             log.info("updating account currency from "+exists.getCurrency().getValue()+" to "+updated.getCurrency().getValue());
-            Exchange exchange = exchangeRepository.findByFromCurrencyAndToCurrency(exists.getCurrency(),updated.getCurrency());
+            Exchange exchange = exchangeRepository.findByFromCurrencyAndToCurrency(exists.getCurrency(),updated.getCurrency())
+                    .orElseThrow(() -> new ResourceNotFoundException("currencies not found"+exists.getCurrency().getValue()+" and "+updated.getCurrency().getValue()));
             exists.setCurrency(updated.getCurrency());
             exists.setBalance(exchange.getExchangeRate().multiply(exists.getBalance()));
         }
@@ -98,7 +99,8 @@ public class AccountService {
     private BigDecimal calculateInit(Currency currencyTo) {
         Currency currencyFrom = currencyRepository.findByValue(initCurrency)
                 .orElseThrow(() -> new ResourceNotFoundException("original currency not found " + initCurrency));
-        Exchange exchange = exchangeRepository.findByFromCurrencyAndToCurrency(currencyFrom,currencyTo);
+        Exchange exchange = exchangeRepository.findByFromCurrencyAndToCurrency(currencyFrom,currencyTo)
+                .orElseThrow(() -> new ResourceNotFoundException("currencies not found"+currencyTo.toString()));;
         return initAmount.multiply(exchange.getExchangeRate());
     }
 }

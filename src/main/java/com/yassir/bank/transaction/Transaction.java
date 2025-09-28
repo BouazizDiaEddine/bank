@@ -32,7 +32,7 @@ public class Transaction {
             strategy = GenerationType.SEQUENCE,
             generator = "transaction_id_sequence"
     )
-    private long transaction_id;
+    private Long transaction_id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "from_account_id")

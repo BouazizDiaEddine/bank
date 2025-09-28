@@ -16,6 +16,7 @@ public class InsertTransactionDeposit implements InsertTransaction {
         accountTo.setBalance(accountTo.getBalance().add(transaction.getAmount()));
 
         transaction.setToAccount(accountTo);
+        transaction.setTransaction_id(null);
 
         return List.of(transaction);
     }

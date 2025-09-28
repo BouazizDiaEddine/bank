@@ -29,6 +29,8 @@ public class InsertTransactionExchange implements InsertTransaction{
         Transaction reverseTransaction = reverseTransaction(transaction);
 
         transaction.setAmount(trxToSend);
+        transaction.setTransaction_id(null);
+        reverseTransaction.setTransaction_id(null);
 
         return List.of(transaction,reverseTransaction);
     }

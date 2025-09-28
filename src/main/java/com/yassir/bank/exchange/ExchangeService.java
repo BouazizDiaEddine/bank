@@ -37,7 +37,7 @@ public class ExchangeService {
 
         reverseExchange.setFromCurrency(currencyTo);
         reverseExchange.setToCurrency(currencyFrom);
-        reverseExchange.setExchangeRate(new BigDecimal(1).divide(exchange.getExchangeRate()));
+        reverseExchange.setExchangeRate(new BigDecimal(1).divide(exchange.getExchangeRate(),10, RoundingMode.HALF_UP));
 
         exchange.setExchangeId(null);
         reverseExchange.setExchangeId(null);
@@ -60,7 +60,8 @@ public class ExchangeService {
         exists.setExchangeRate(updated.getExchangeRate());
 
         //update reverse
-        Exchange existsReverse = exchangeRepository.findByFromCurrencyAndToCurrency(currencyTo,currencyFrom);
+        Exchange existsReverse = exchangeRepository.findByFromCurrencyAndToCurrency(currencyTo,currencyFrom)
+                .orElseThrow(() -> new ResourceNotFoundException("currencies not found"+currencyTo.getValue()+" and "+currencyFrom.getValue()));;
 
         existsReverse.setExchangeRate(new BigDecimal(1).divide(updated.getExchangeRate(),10, RoundingMode.HALF_UP));
 

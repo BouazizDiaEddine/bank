@@ -16,6 +16,7 @@ public class InsertTransactionWithdrawal implements InsertTransaction {
         accountTo.setBalance(accountTo.getBalance().subtract(transaction.getAmount()));
         
         transaction.setToAccount(accountTo);
+        transaction.setTransaction_id(null);
         
         return List.of(transaction);
     }

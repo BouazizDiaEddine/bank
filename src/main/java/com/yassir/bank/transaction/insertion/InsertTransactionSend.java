@@ -25,8 +25,11 @@ public class InsertTransactionSend implements InsertTransaction {
         transaction.setFromAccount(accountFrom);
         transaction.setToAccount(accountTo);
 
-
         Transaction reverseTransaction = reverseTransaction(transaction);
+
+        transaction.setTransaction_id(null);
+        reverseTransaction.setTransaction_id(null);
+
         return List.of(reverseTransaction,transaction);
     }
 
