@@ -53,8 +53,8 @@ public class ExchangeService {
         Currency currencyFrom = currencyRepository.findById(exists.getFromCurrency().getCurrencyId()).orElseThrow(() -> new ResourceNotFoundException("Currency from not found " + updated.getFromCurrency().getCurrencyId()));
         Currency currencyTo = currencyRepository.findById(exists.getToCurrency().getCurrencyId()).orElseThrow(() -> new ResourceNotFoundException("Currency not found " + updated.getToCurrency().getCurrencyId()));
 
-        if(!exists.getToCurrency().equals(updated.getToCurrency()) ||
-                !exists.getFromCurrency().equals(updated.getFromCurrency()))
+        if(!exists.getToCurrency().getValue().equals(updated.getToCurrency().getValue()) ||
+                !exists.getFromCurrency().getValue().equals(updated.getFromCurrency().getValue()))
             throw new InvalidInputException("Currencies of the body "+updated+"dont match the ones with the id :" +id);
 
         exists.setExchangeRate(updated.getExchangeRate());
