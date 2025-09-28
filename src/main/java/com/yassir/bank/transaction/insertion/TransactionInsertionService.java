@@ -1,5 +1,6 @@
 package com.yassir.bank.transaction.insertion;
 
+import com.yassir.bank.exchange.Exchange;
 import com.yassir.bank.transaction.Transaction;
 
 import java.util.List;
@@ -15,5 +16,9 @@ public class TransactionInsertionService {
 
     public List<Transaction> getInsertTransaction(Transaction transaction) {
         return insertTransaction.insertTrx(transaction);
+    }
+
+    public List<Transaction> getInsertTransaction(Transaction transaction, Exchange exchange) {
+        return insertTransaction.insertTrx(transaction,exchange);
     }
 }

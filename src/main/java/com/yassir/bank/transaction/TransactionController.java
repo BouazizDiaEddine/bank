@@ -94,4 +94,23 @@ public class TransactionController {
         log.info("withdrawal from account :"+transaction.getToAccount().getAccountId());
         return ResponseEntity.ok(transactionService.insertTransactionWithdrawal(transaction));
     }
+
+    @Operation(
+            summary = "exchange money between 2 accounts",
+            description = "exchanges between 2 accounts of the same user; changes the amount according to the exchange table then sends"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Exchange transaction created successfully",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = Transaction.class)))),
+            @ApiResponse(responseCode = "400", description = "Invalid input (wrong transaction type)",
+                    content = @Content(schema = @Schema(example = "{ \"message\": \"the transaction type should be WITHDRAWAL\" }"))),
+            @ApiResponse(responseCode = "404", description = "Account not found",
+                    content = @Content(schema = @Schema(example = "{ \"message\": \"account not found 20\" }"))),
+    })
+    @PostMapping(("/exchange"))
+    public ResponseEntity<List<Transaction>> createTransactionExchange(@Valid @RequestBody Transaction transaction) {
+        log.info("withdrawal from account :"+transaction.getToAccount().getAccountId());
+        return ResponseEntity.ok(transactionService.insertTransactionExchange(transaction));
+    }
+
 }

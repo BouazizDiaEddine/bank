@@ -4,5 +4,6 @@ public enum Status {
     SEND,
     RECEIVED,
     DEPOSIT,
+    EXCHANGE,
     WITHDRAWAL
 }
