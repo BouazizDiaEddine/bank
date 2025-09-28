@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
         body.put("error", "Invilid input");
         body.put("message", ex.getMessage());
 
-        log.error("InvalidInputq Exception"+ ex.getMessage());
+        log.error("InvalidInput Exception"+ ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
