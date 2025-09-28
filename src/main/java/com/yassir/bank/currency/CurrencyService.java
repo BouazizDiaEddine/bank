@@ -31,6 +31,7 @@ public class CurrencyService {
         currencyRepository.findByValue(currency.getValue()).ifPresent(u -> {
             throw new DuplicateResourceException("currency '" + currency.getValue() + "' already exists");
         });
+        currency.setCurrencyId(null);
         return currencyRepository.save(currency);
     }
 

@@ -32,6 +32,7 @@ public class UserService {
         userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
             throw new DuplicateResourceException("Email '" + user.getEmail() + "' is already used");
         });
+        user.setUserId(null);
         userRepository.save(user);
         log.info("User was saved successfully "+user.toString());
         return user;

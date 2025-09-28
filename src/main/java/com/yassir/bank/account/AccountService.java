@@ -68,6 +68,7 @@ public class AccountService {
         if (account.getBalance().compareTo(init)<0)
             throw new InvalidInputException("initial balance in "+account.getCurrency().getValue()+" should be " +init+ " greater than "+account.getBalance());
 
+        account.setAccountId(null);
         return accountRepository.save(account);
     }
 

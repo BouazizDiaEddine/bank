@@ -34,7 +34,7 @@ public class Account {
             strategy = GenerationType.SEQUENCE,
             generator = "account_id_sequence"
     )
-    private long accountId;
+    private Long accountId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
