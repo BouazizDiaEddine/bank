@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Slf4j
@@ -41,19 +42,20 @@ public class ExchangeService {
     }
 
     //update updated by currencyFrom to currencyTo (this updates both)
-    public List<Exchange> updateExchange(Exchange updated) {
+    public List<Exchange> updateExchange(Long id,Exchange updated) {
         log.info("checking the existence if the currencies of "+updated.toString());
         Currency currencyFrom = currencyRepository.findById(updated.getFromCurrency().getCurrencyId()).orElseThrow(() -> new ResourceNotFoundException("Currency from not found " + updated.getFromCurrency().getCurrencyId()));
         Currency currencyTo = currencyRepository.findById(updated.getToCurrency().getCurrencyId()).orElseThrow(() -> new ResourceNotFoundException("Currency not found " + updated.getToCurrency().getCurrencyId()));
 
-        Exchange exists = exchangeRepository.findByFromCurrencyAndToCurrency(currencyFrom,currencyTo);
+        Exchange exists = exchangeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("exchange for the given currencies not found" + updated.getFromCurrency().getCurrencyId()+" "+updated.getToCurrency().getCurrencyId())) ;
         exists.setExchangeRate(updated.getExchangeRate());
 
         //update reverse
         Exchange existsReverse = exchangeRepository.findByFromCurrencyAndToCurrency(currencyTo,currencyFrom);
-        existsReverse.setExchangeRate(new BigDecimal(1).divide(updated.getExchangeRate()));
+        System.out.println(updated.getExchangeRate());
+        existsReverse.setExchangeRate(new BigDecimal(1).divide(updated.getExchangeRate(),10, RoundingMode.HALF_UP));
 
-        return List.of(exists,existsReverse);
+        return exchangeRepository.saveAll(List.of(exists,existsReverse));
     }
 
 

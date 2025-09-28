@@ -71,10 +71,10 @@ public class ExchangeController {
             @ApiResponse(responseCode = "404", description = "Currency not found",
                     content = @Content(schema = @Schema(example = "{ \"message\": \"Currency from not found 99\" }"))),
     })
-    @PutMapping
-    public ResponseEntity<List<Exchange>> updateExchange(@Valid @RequestBody Exchange exchange){
+    @PutMapping("/{id}")
+    public ResponseEntity<List<Exchange>> updateExchange(@PathVariable Long id,@Valid @RequestBody Exchange exchange){
         log.info("updating exchanges for currencies "+exchange.getToCurrency().getCurrencyId()+" and "+exchange.getFromCurrency().getCurrencyId());
-        return ResponseEntity.ok(exchangeService.updateExchange(exchange));
+        return ResponseEntity.ok(exchangeService.updateExchange(id,exchange));
     }
 
 

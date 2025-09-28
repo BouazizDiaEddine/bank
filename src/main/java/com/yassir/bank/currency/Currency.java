@@ -26,7 +26,7 @@ public class Currency {
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "account_id_sequence"
+            generator = "currency_id_sequence"
     )
     private Long currencyId;
 
