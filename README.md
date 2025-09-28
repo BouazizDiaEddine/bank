@@ -131,3 +131,85 @@ After running the application, please visit the link bellow for the openApi docu
   }
 ]
 ```
+#ACCOUNTS
+```json
+{
+    "accountId": 1003,
+    "user": {
+      "userId": 1000,
+      "name": "Branden Gibson",
+      "email": "BG@mail.com"
+    },
+    "currency": {
+      "currencyId": 1001,
+      "value": "DZD",
+      "name": "Algerian Dinar"
+    },
+    "balance": 201
+  },
+  {
+    "accountId": 1006,
+    "user": {
+      "userId": 1000,
+      "name": "Branden Gibson",
+      "email": "BG@mail.com"
+    },
+    "currency": {
+      "currencyId": 1000,
+      "value": "euro",
+      "name": "euro"
+    },
+    "balance": 100
+  },
+  {
+    "accountId": 1002,
+    "user": {
+      "userId": 1000,
+      "name": "Branden Gibson",
+      "email": "BG@mail.com"
+    },
+    "currency": {
+      "currencyId": 1005,
+      "value": "LIRA",
+      "name": "lira"
+    },
+    "balance": 499
+  }
+```
+
+#TRANSACRIONS
+````JSON
+{
+"transaction_id": 1007,
+"fromAccount": {  // should only be present for 'SEND' transactions
+"accountId": 1004,
+"user": {
+"userId": 1001,
+"name": "Georgina Hazel",
+"email": "GH@mail.com"
+},
+"currency": {
+"currencyId": 1005,
+"value": "LIRA",
+"name": "lira"
+},
+"balance": 501
+},
+"toAccount": {
+"accountId": 1004,
+"user": {
+"userId": 1001,
+"name": "Georgina Hazel",
+"email": "GH@mail.com"
+},
+"currency": {
+"currencyId": 1005,
+"value": "LIRA",
+"name": "lira"
+},
+"balance": 501
+},
+"trxType": "SEND", // could be SEND, DEPOSIT, WITHDRAWAL
+"amount": 1
+}
+````
