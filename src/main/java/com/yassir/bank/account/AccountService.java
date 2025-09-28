@@ -48,6 +48,7 @@ public class AccountService {
         return accountRepository.findAccountsByUser(user);
     }
 
+    @Transactional
     public Account findById(Long id) {
         return accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Account not found with id " + id));
     }
@@ -76,7 +77,7 @@ public class AccountService {
     public Account updateAccount(Long id, Account updated) {
         Account exists = accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Account not found with id " + id));
 
-        if(!exists.getCurrency().equals(updated.getCurrency())) {
+        if(!exists.getCurrency().getValue().equals(updated.getCurrency().getValue())) {
             log.info("updating account currency from "+exists.getCurrency().getValue()+" to "+updated.getCurrency().getValue());
             Exchange exchange = exchangeRepository.findByFromCurrencyAndToCurrency(exists.getCurrency(),updated.getCurrency());
             exists.setCurrency(updated.getCurrency());
